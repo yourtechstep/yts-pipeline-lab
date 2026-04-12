@@ -1,0 +1,44 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [ main, YTS-Branch-1 ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      working-directory: App-e2e
+      run: npm ci
+
+    # 🔥 THIS IS THE IMPORTANT FIX
+    - name: Install Playwright system dependencies
+      working-directory: App-e2e
+      run: npx playwright install-deps
+
+    - name: Install Playwright browsers
+      working-directory: App-e2e
+      run: npx playwright install
+
+    - name: Run Playwright tests
+      working-directory: App-e2e
+      run: npx playwright test
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report
+        path: App-e2e/playwright-report
