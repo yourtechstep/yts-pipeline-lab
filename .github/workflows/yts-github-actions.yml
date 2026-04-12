@@ -21,11 +21,11 @@ jobs:
 
     - name: Install dependencies
       working-directory: App-e2e
-      run: npm install
+      run: npm ci
 
     - name: Install Playwright browsers
       working-directory: App-e2e
-      run: npx --yes playwright install --with-deps
+      run: node node_modules/@playwright/test/cli.js install --with-deps
 
     - name: Run Playwright tests
       working-directory: App-e2e
