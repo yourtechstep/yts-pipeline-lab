@@ -1,0 +1,40 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+# 1. Install Node
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'
+  displayName: 'Install Node.js'
+
+# 2. Install dependencies (E2E project)
+- script: |
+    cd App-e2e
+    npm install
+  displayName: 'Install dependencies'
+
+# 3. Install Playwright browsers
+- script: |
+    cd App-e2e
+    npx playwright install --with-deps
+  displayName: 'Install Playwright browsers'
+
+# 4. Run Playwright tests (this will start your app via webServer config)
+- script: |
+    cd App-e2e
+    npx playwright test
+  displayName: 'Run Playwright tests'
+
+# 5. Publish test results (optional but 🔥 for demo)
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/test-results/*.xml'
+    failTaskOnFailedTests: true
+  condition: succeededOrFailed()
+  displayName: 'Publish Test Results'

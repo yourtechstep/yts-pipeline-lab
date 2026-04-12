@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YTS Task Manager - Dashboard</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 id="pageTitle">YTS Task Manager</h1>
+                <button 
+                    id="logoutBtn" 
+                    data-testid="logout-button" 
+                    class="btn btn-secondary"
+                >
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <p class="welcome-text">
+                    Welcome, <span id="userEmail" data-testid="user-email"></span>
+                </p>
+            </section>
+
+            <!-- Add Task Form -->
+            <section class="add-task-section">
+                <h2>Add a New Task</h2>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskInput">Task Description</label>
+                        <input 
+                            type="text" 
+                            id="taskInput" 
+                            data-testid="task-input" 
+                            placeholder="Enter a task name..."
+                            required
+                        >
+                    </div>
+                    <button 
+                        type="submit" 
+                        id="addTaskBtn" 
+                        data-testid="add-task-button" 
+                        class="btn btn-primary"
+                    >
+                        Add Task
+                    </button>
+                </form>
+            </section>
+
+            <!-- Tasks List -->
+            <section class="tasks-section">
+                <h2>Tasks</h2>
+                <ul id="tasksList" class="tasks-list" data-testid="tasks-list">
+                    <li class="empty-state">No tasks yet. Add one to get started!</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
